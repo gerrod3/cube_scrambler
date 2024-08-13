@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="scramble.css" />
+  </head>
+  <body>
+    <div>
+      <div class="box">
+        <p id="scramble">Hit scramble to get a new scramble!</p>
+      </div>
+      <button id="scramble-button">Scramble</button>
+      <div class="timer-box">
+        <div class="timer">
+          <span id="timer-value">00:00.00</span>
+        </div>
+        <div class="button-box">
+          <button id="timer-start">Start</button>
+          <span style="display: flex;">
+            <button id="timer-reset">R</button>
+            <button id="timer-save">S</button>
+          </span>
+        </div>
+      </div>
+      <div class="stat-row">
+        <span style="flex: 1;">
+          <select id="stat-select">
+            <option value="session" selected>Session</option>
+            <option value="today">Today</option>
+            <option value="week">Last 7 Days</option>
+            <option value="all">All Time</option>
+          </select>
+        </span>
+        <table style="flex: 3;">
+          <thead>
+            <tr>
+              <th scope="col">Average</th>
+              <th scope="col">Best</th>
+              <th scope="col">Worst</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="avg-stat">00:00.00</td>
+              <td id="best-stat">00:00.00</td>
+              <td id="worst-stat">00:00.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="scramble.js"></script>
+    <script src="timer.js"></script>
+    <script src="database.js"></script>
+    <script src="model.js"></script>
+    <script src="commands.js"></script>
+  </body>
+</html>

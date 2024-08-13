@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Cube Scrambler",
+  "version": "1.0",
+  "description": "Quick random Cube scrambles with a recorded timer!",
+  "homepage_url": "https://github.com/gerrod3/cube_scrambler",
+  "action": {
+    "default_icon": "icons/box-3d.png",
+    "default_title": "Cube Scrambler",
+    "default_popup": "popup/scramble.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Space"
+      }
+    }
+  }
+}
