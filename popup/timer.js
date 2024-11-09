@@ -93,10 +93,12 @@ function timerReset() {
     }
 }
 
-timer_start.addEventListener("click", (e) => {
+timer_start.addEventListener("mousedown", (e) => {
+    e.preventDefault();
     timerStart();
 });
 
-timer_reset.addEventListener("click", (e) => {
+timer_reset.addEventListener("mousedown", (e) => {
+    e.preventDefault();
     timerReset();
 });

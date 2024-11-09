@@ -95,15 +95,17 @@ let saving = false;
 function saveTime() {
     timer.pause();
     let scramble = getScramble();
+    let scrambleS = scramble.join(",");
     let time = timer.elapsed;
-    if (lastScramble !== scramble || lastTimer !== time) {
+    if (time && (lastScramble !== scrambleS || lastTimer !== time)) {
+        console.log("saving, ", time, scrambleS, lastTimer, lastScramble);
         if (!saving) {
             saving = true;
             let value = new Cube3x3(scramble, time);
             value.db.save()
             .then((v) => {
                 updateStatValues();
-                lastScramble = scramble;
+                lastScramble = scrambleS;
                 lastTimer = time;
             })
             .finally(() => {
@@ -112,11 +114,13 @@ function saveTime() {
         }
     }
 }
-save_button.addEventListener("click", (e) => {
-    console.log("Saving time button");
+save_button.addEventListener("mousedown", (e) => {
+    e.preventDefault();
     saveTime();
 });
 stat_select.addEventListener("change", (e) => {
+    e.target.blur();
     updateStatValues();
+    
 });
 onDBInit(updateStatValues);

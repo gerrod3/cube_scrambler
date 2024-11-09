@@ -6,18 +6,17 @@ addEventListener("keydown", (e) => {
     if (e.key === " ") {
         // Start/stop the timer
         timerStart();
-    } else if (e.key === "r") {
+    } else if (e.key === "c") {
         // Stop timer, reset & generate new scramble
         timer.pause();
         timerReset();
         newScramble();
-    } else if (e.key === "d") {
+    } else if (e.key === "x") {
         // Stop timer, & just reset it
         timer.pause();
         timerReset();
-    } else if (e.key === "s") {
+    } else if (e.key === "z") {
         // Stop timer, save the time+scramble to database, update time avg values
-        console.log("Trying to save command");
         saveTime();
     }
     
