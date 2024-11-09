@@ -63,5 +63,11 @@ button[type="reset"]:hover {
   display: flex;
   /* flex: row; */
   justify-content: center;
+  align-items: center;
   margin: 3% auto;
+  text-align: center;
+}
+
+#scramble {
+  text-wrap: balance;
 }
