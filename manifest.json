@@ -15,5 +15,13 @@
         "default": "Ctrl+Shift+Space"
       }
     }
+  },
+  "permissions": [
+    "unlimitedStorage"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "cube_scrambler@gerrod.dev"
+    }
   }
 }
