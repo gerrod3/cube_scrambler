@@ -18,11 +18,12 @@ const initRequest = window.indexedDB.open(DBNAME, DBVERSION);
 
 initRequest.onerror = (event) => {
     // TODO: do something (maybe make db api do a bunch of no-ops)
-    console.log("DB init error", event.error);
+    console.error("DB init error", event.error);
 };
 
 initRequest.onblocked = (event) => {
     // Some other tab/window opened the database, possibly reload here?
+    console.debug(`Database is blocked ${event.target.error}`);
 }
 
 initRequest.onupgradeneeded = (event) => {
@@ -43,7 +44,7 @@ initRequest.onsuccess = (event) => {
         // TODO: Add better error handling
         console.error(`Database error: ${event.target.errorCode}`);
     };
-    console.log("DB onsucess");
+    console.debug("DB onsucess");
     for (const func of waitingInits) {
         func();
     }
@@ -63,6 +64,9 @@ class Database {
     }
     get #readwriteStore() {
         return db.transaction([this.model.DB_OBJECT_NAME], "readwrite").objectStore(this.model.DB_OBJECT_NAME);
+    }
+    get isInit() {
+        return !!db;
     }
     getObject(object) {
         if (object instanceof this.model) {

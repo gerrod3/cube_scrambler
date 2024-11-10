@@ -97,8 +97,8 @@ function saveTime() {
     let scramble = getScramble();
     let scrambleS = scramble.join(",");
     let time = timer.elapsed;
-    if (time && (lastScramble !== scrambleS || lastTimer !== time)) {
-        console.log("saving, ", time, scrambleS, lastTimer, lastScramble);
+    if (Cube3x3.db.isInit && time && (lastScramble !== scrambleS || lastTimer !== time)) {
+        console.debug("saving, ", time, scrambleS, lastTimer, lastScramble);
         if (!saving) {
             saving = true;
             let value = new Cube3x3(scramble, time);
