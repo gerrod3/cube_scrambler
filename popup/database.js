@@ -114,7 +114,7 @@ class Database {
     }
     // save, delete, list
     // All apis return a promise that can be chained to get the result, convert indexDBs callbacks to promise api
-    objects(filterObject=null, limit=undefined, reversed=false) {
+    objects({ filterObject=null, limit=undefined, reversed=false } = {}) {
         // List all the objects available, TODO: Add indexes
         let store = this.#readStore;
         let keyRange = filterObject ? this.getFilterRange(filterObject) : undefined;
@@ -144,7 +144,7 @@ class Database {
             };
         });
     }
-    save(objects=null) {
+    save({ objects=null } = {}) {
         // Forcefully insert the object(s) into the database
         if (!objects && !this.instance) {
             throw new Error("No passed in objects or instance to save");
@@ -169,7 +169,7 @@ class Database {
         }
         return Promise.all(promises);
     }
-    delete(objects=null, filterObject=null) {
+    delete({ objects=null, filterObject=null } = {}) {
         // Forcefully delete the object(s) from the database
         if (!objects && !this.instance && !filterObject) {
             throw new Error("No passed in objects, filter or instance to delete");

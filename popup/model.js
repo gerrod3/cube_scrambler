@@ -53,7 +53,7 @@ const filterOptions = {
 function updateStatValues() {
     // TODO: add time html selector
     let filterObject = filterOptions[stat_select.value];
-    Cube3x3.db.objects(filterObject).then((values) => {
+    Cube3x3.db.objects({ filterObject }).then((values) => {
         avg_value.innerText = getDisplayValue(calculateAvg(values));
         best_value.innerText = getDisplayValue(calculateBest(values));
         worst_value.innerText = getDisplayValue(calculateWorst(values));
@@ -133,14 +133,13 @@ let delete_text = document.getElementById("delete-record-text");
 let deleting = false;
 
 function deleteRecords() {
-    // TODO: change db API to use object destructing
-    if (!deleting) {
+    if (Cube3x3.db.isInit && !deleting) {
         console.debug("Deleting ", delete_select.value);
         let del_promise = null;
         if (delete_select.value == "last") {
-            del_promise = Cube3x3.db.objects(null, 1, true).then((v) => Cube3x3.db.delete(v));
+            del_promise = Cube3x3.db.objects({ limit: 1, reversed: true }).then((v) => Cube3x3.db.delete({ objects: v }));
         } else {
-            del_promise = Cube3x3.db.delete(null, filterOptions[delete_select.value]);
+            del_promise = Cube3x3.db.delete({ filterObject: filterOptions[delete_select.value] });
         }
         del_promise.then((v) => {
             updateStatValues();
