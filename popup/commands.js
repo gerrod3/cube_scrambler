@@ -18,6 +18,10 @@ addEventListener("keydown", (e) => {
     } else if (e.key === "z") {
         // Stop timer, save the time+scramble to database, update time avg values
         saveTime();
+    } else if (e.key === "Delete") {
+        // Stop timer and bring up delete modal
+        timer.pause();
+        showDeleteModal();
     }
     
 });

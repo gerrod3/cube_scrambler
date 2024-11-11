@@ -74,6 +74,12 @@ class Database {
         }
         return object;
     }
+    getModel(object) {
+        if (object instanceof this.model) {
+            return object;
+        }
+        return new this.model({...object});
+    }
     getFilterRange(filterObject) {
         // filterObject is an object with possible keys: lt, lte, gt, gte, eq
         if (filterObject instanceof IDBKeyRange) {
@@ -108,25 +114,29 @@ class Database {
     }
     // save, delete, list
     // All apis return a promise that can be chained to get the result, convert indexDBs callbacks to promise api
-    objects(filterObject=null) {
-        // List all the objects available, TODO: Add indexes, reversal
+    objects(filterObject=null, limit=undefined, reversed=false) {
+        // List all the objects available, TODO: Add indexes
         let store = this.#readStore;
-        let keyRange = filterObject ? this.getFilterRange(filterObject) : null;
-        if (!keyRange) {
+        let keyRange = filterObject ? this.getFilterRange(filterObject) : undefined;
+        if (!reversed) {
             return new Promise((resolve, reject) => {
-                const result = store.getAll();
+                const result = store.getAll(keyRange, limit);
                 result.onsuccess = (event) => resolve(event.target.result);
                 result.onerror = (event) => reject(event.target.error);
             });
-        } 
+        }
+        // TODO: Figure out how to make reverse better
         return new Promise((resolve, reject) => {
             let objects = [];
-            const result = store.openCursor(keyRange);
+            const result = store.openCursor(keyRange, reversed ? "prev": "next");
             result.onerror = (event) => reject(event.target.error);
             result.onsuccess = (event) => {
                 const cursor = event.target.result; // cursor is the result of the callback
                 if (cursor) {
                     objects.push(cursor.value);
+                    if (limit && objects.length == limit) {
+                        return resolve(objects);
+                    }
                     cursor.continue(); // will trigger this onsuccess callback again
                 } else {
                     resolve(objects); // all objects fetched when cursor is now null
@@ -137,10 +147,10 @@ class Database {
     save(objects=null) {
         // Forcefully insert the object(s) into the database
         if (!objects && !this.instance) {
-            throw Error("No passed in objects or instance to save");
+            throw new Error("No passed in objects or instance to save");
         }
         if (objects && this.instance) {
-            throw Error("Passed in objects when instance was already set");
+            throw new Error("Passed in objects when instance was already set");
         }
         if (this.instance) {
             objects = [this.instance];
@@ -159,19 +169,40 @@ class Database {
         }
         return Promise.all(promises);
     }
-    delete(objects=null) {
+    delete(objects=null, filterObject=null) {
         // Forcefully delete the object(s) from the database
-        // Forcefully insert the object(s) into the database
-        if (!objects && !this.instance) {
-            throw Error("No passed in objects or instance to delete");
+        if (!objects && !this.instance && !filterObject) {
+            throw new Error("No passed in objects, filter or instance to delete");
+        }
+        if (objects && filterObject) {
+            throw new Error("Passed in objects and filterObject, only one is allowed");
         }
         if (objects && this.instance) {
-            throw Error("Passed in objects when instance was already set");
+            throw new Error("Passed in objects when instance was already set");
+        }
+        if (filterObject && this.instance) {
+            throw new Error("Passed in filterObject when instance was already set");
+        }
+        let store = this.#readwriteStore;
+        if (filterObject) {
+            const filter = this.getFilterRange(filterObject);
+            return filter ? 
+                new Promise((resolve, reject) => {
+                    // Maybe perform a read first to get the number of entries about to be deleted?
+                    const result = store.delete(filter);
+                    result.onsuccess = (event) => resolve(filter);
+                    result.onerror = (event) => reject(event.target.error);
+                }) :
+                new Promise((resolve, reject) => {
+                    // if filter is null, delete everything (this seems dangerous as an api)
+                    const result = store.clear();
+                    result.onsuccess = (event) => resolve(filter);
+                    result.onerror = (event) => reject(event.target.error);
+                });
         }
         if (this.instance) {
             objects = [this.instance];
         }
-        let store = this.#readwriteStore;
         let promises = [];
         for (const obj of objects) {
             promises.push(

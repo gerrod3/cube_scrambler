@@ -4,7 +4,7 @@ class Cube3x3 {
     // scramble as array of moves
     // solve time in ms
     #_object = null;
-    constructor(scramble, time, date=null) {
+    constructor({ scramble, time, date=null }) {
         this.scramble = scramble;
         this.time = time;
         if (!date) {
@@ -47,7 +47,7 @@ const filterOptions = {
     session: {gt: sessionStart},
     today: {gt: today},
     week: {gt: laskWeek},
-    all: null,
+    all: {all: null},
 };
 
 function updateStatValues() {
@@ -101,7 +101,7 @@ function saveTime() {
         console.debug("saving, ", time, scrambleS, lastTimer, lastScramble);
         if (!saving) {
             saving = true;
-            let value = new Cube3x3(scramble, time);
+            let value = new Cube3x3({ scramble, time });
             value.db.save()
             .then((v) => {
                 updateStatValues();
@@ -124,3 +124,54 @@ stat_select.addEventListener("change", (e) => {
     
 });
 onDBInit(updateStatValues);
+
+let delete_modal = document.getElementById("delete-modal");
+let delete_select = document.getElementById("delete-select");
+let delete_cancel = document.getElementById("delete-cancel-button");
+let delete_confirm = document.getElementById("delete-confirm-button");
+let delete_text = document.getElementById("delete-record-text");
+let deleting = false;
+
+function deleteRecords() {
+    // TODO: change db API to use object destructing
+    if (!deleting) {
+        console.debug("Deleting ", delete_select.value);
+        let del_promise = null;
+        if (delete_select.value == "last") {
+            del_promise = Cube3x3.db.objects(null, 1, true).then((v) => Cube3x3.db.delete(v));
+        } else {
+            del_promise = Cube3x3.db.delete(null, filterOptions[delete_select.value]);
+        }
+        del_promise.then((v) => {
+            updateStatValues();
+        }).finally(() => {
+            deleting = false;
+        });
+    }
+}
+
+function showDeleteModal() {
+    if (!delete_modal.open) {
+        delete_modal.showModal();
+    }
+}
+
+delete_cancel.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    delete_modal.close();
+});
+
+delete_confirm.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    deleteRecords();
+    delete_modal.close();
+});
+
+delete_select.addEventListener("change", (e) => {
+    e.target.blur();
+    if (e.target.value === "last") {
+        delete_text.innerText = "record?";
+    } else {
+        delete_text.innerText = "records?";
+    }
+});

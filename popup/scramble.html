@@ -48,6 +48,27 @@
           </tbody>
         </table>
       </div>
+      <dialog id="delete-modal">
+        <div>
+          <div class="delete-question">
+            <h3>Delete </h3>
+            <select id="delete-select" style="margin-left: 3%; margin-right: 3%;">
+              <option value="last" selected>last</option>
+              <option value="session">session's</option>
+              <option value="today">today's</option>
+              <option value="week">week's</option>
+              <option value="all">all</option>
+            </select>
+            <h3 id="delete-record-text"> record?</h3>
+          </div>
+          <button id="delete-cancel-button">
+            Cancel
+          </button>
+          <button id="delete-confirm-button">
+            Delete
+          </button>
+        </div>
+      </dialog>
     </div>
     <script src="scramble.js"></script>
     <script src="timer.js"></script>

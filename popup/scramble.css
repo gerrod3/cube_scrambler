@@ -43,7 +43,6 @@ button[type="reset"]:hover {
 .timer-box {
     width: 100%;
     display: flex;
-    /* flex: row; */
 }
 
 .timer {
@@ -61,7 +60,6 @@ button[type="reset"]:hover {
 .stat-row {
   width: 100%;
   display: flex;
-  /* flex: row; */
   justify-content: center;
   align-items: center;
   margin: 3% auto;
@@ -70,4 +68,16 @@ button[type="reset"]:hover {
 
 #scramble {
   text-wrap: balance;
+}
+
+.delete-question {
+  display: flex;
+  align-items: center;
+}
+
+#delete-confirm-button {
+  background-color: rgb(216, 128, 146);
+}
+#delete-confirm-button:hover {
+  background-color: rgb(223, 3, 47);
 }
