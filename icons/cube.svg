@@ -1,0 +1,9 @@
+<svg width="48" height="48" viewBox="0 0 100 100">
+    <g id="cube" transform="matrix(2.162990093231201, 0, 0, 2.0745370388031006, 4.577218055725098, 24.952293395996087)">
+        <!-- <bx:title>Cube3D</bx:title>
+        <desc>Simple Cube Inspired by: https://codepen.io/marianab/pen/XWWQbYP</desc> -->
+        <rect width="21" height="24" fill="#ff0000" stroke="#000000" transform="skewY(30)"></rect>
+        <rect width="21" height="24" fill="#0000ff" stroke="#000000" transform="skewY(-30) translate(21 24.3)"></rect>
+        <rect width="21" height="21" fill="#ffffff" stroke="#000000" transform="scale(1.41,.81) rotate(45) translate(0 -21)"></rect>
+    </g>
+</svg>
