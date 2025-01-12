@@ -217,5 +217,4 @@ class Database {
         }
         return Promise.all(promises);
     }
-
 }

@@ -86,6 +86,7 @@ function scramble(num_moves=20, moveset=ALLMOVES) {
             [...ALLMOVES.keys()].map((m) => [m, applyMove(perm, ALLMOVES.get(m))])
         );
         let [l1, l2] = last_two;
+        // Don't let three opposite face moves occur, i.e. L L R, can lead to the next move being L'
         let bad_moves = OPPOSITEFACE[l1[0]] === l2[0] ? new Set([l1[0], l2[0]]) : empty;
         let string_possibles = new Map(
             [...possible_perms_with_moves.entries()].map(([m, p]) => [m, p.join(",")]).filter(([m, p]) => !all_possible_perms.has(p) && !bad_moves.has(m[0]))
@@ -97,34 +98,6 @@ function scramble(num_moves=20, moveset=ALLMOVES) {
         for (const sperm of string_possibles.values()) {
             all_possible_perms.add(sperm);
         }
-    }
-    return moves.join(" ");
-}
-
-function oldscramble(num_moves=20, moveset=MOVES) {
-    let moves = [];
-    let prev, pprev = null;
-    for (let i = 0; i < num_moves; ++i) {
-        let posmoves = new Set(moveset.keys());
-        if (prev) {
-            posmoves.delete(moveset.get(prev)[0]); // remove the inverse move
-            if (prev === pprev) {
-                posmoves.delete(prev); // remove the previous move to prevent 3 rotations
-            }
-            if (pprev && moveset.get(pprev)[1] === prev[0]) {
-                posmoves.delete(moveset.get(pprev)[0]); // remove inverse move if no cross face move has been performed
-                // this only checks the past 2 moves, still possible you could get R L R L R L R L if really unlucky... 
-            }
-        }
-        posmoves = Array.from(posmoves);
-        let move = posmoves[randomInt(posmoves.length)];
-        if (move === prev) {
-            moves[moves.length-1] = move[0] + "2";
-        } else {
-            moves.push(move);
-        }
-        pprev = prev;
-        prev = move;
     }
     return moves.join(" ");
 }

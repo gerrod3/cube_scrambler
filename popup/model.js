@@ -27,7 +27,6 @@ class Cube3x3 {
         }
         return this.#_object;
     }
-
 }
 
 let save_button = document.getElementById("timer-save");
