@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Cube Scrambler",
-  "version": "1.0",
+  "version": "1.1",
   "author": "gerrod",
   "description": "Quick random Cube scrambles with a recorded timer!",
   "homepage_url": "https://github.com/gerrod3/cube_scrambler",
