@@ -1,7 +1,10 @@
-html,
+html {
+  box-sizing: border-box;
+}
+
 body {
   width: 380px;
-  box-sizing: border-box;
+  font-size: initial;
 }
 
 .hidden {
@@ -36,7 +39,7 @@ button[type="reset"]:hover {
     text-align: center;
     margin: 0;
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1.5rem;
     box-sizing: border-box;
 }
 
@@ -48,6 +51,7 @@ button[type="reset"]:hover {
 .timer {
     flex: 2;
     font-size: 15vw;
+    font-variant-numeric: tabular-nums;
     display: flex;
     align-items: center;
     justify-content: center;
