@@ -1,3 +1,30 @@
+:root {
+  /* Light theme colors */
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --button-bg: #e5f2f2;
+  --button-hover-bg: #cff2f2;
+  --reset-button-bg: #fbfbc9;
+  --reset-button-hover-bg: #eaea9d;
+  --delete-button-bg: rgb(216, 128, 146);
+  --delete-button-hover-bg: rgb(223, 3, 47);
+  --border-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --button-bg: #2a3b3b;
+    --button-hover-bg: #3a4f4f;
+    --reset-button-bg: #4a4a20;
+    --delete-button-bg: rgb(139, 55, 71);
+    --delete-button-hover-bg: rgb(165, 3, 35);
+    --reset-button-hover-bg: #5c5c28;
+    --border-color: #ffffff;
+  }
+}
+
 html {
   box-sizing: border-box;
 }
@@ -5,6 +32,8 @@ html {
 body {
   width: 380px;
   font-size: initial;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .hidden {
@@ -19,23 +48,25 @@ button {
   text-align: center;
   font-size: 1.5em;
   cursor: pointer;
-  background-color: #e5f2f2;
+  background-color: var(--button-bg);
+  color: var(--text-color);
 }
 
 button:hover {
-  background-color: #cff2f2;
+  background-color: var(--button-hover-bg);
 }
 
 button[type="reset"] {
-  background-color: #fbfbc9;
+  background-color: var(--reset-button-bg);
 }
 
 button[type="reset"]:hover {
-  background-color: #eaea9d;
+  background-color: var(--reset-button-hover-bg);
 }
 
 .box {
     border: solid;
+    border-color: var(--border-color);
     text-align: center;
     margin: 0;
     width: 100%;
@@ -77,11 +108,20 @@ button[type="reset"]:hover {
 .delete-question {
   display: flex;
   align-items: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 #delete-confirm-button {
-  background-color: rgb(216, 128, 146);
+  background-color: var(--delete-button-bg);
 }
 #delete-confirm-button:hover {
-  background-color: rgb(223, 3, 47);
+  background-color: var(--delete-button-hover-bg);
+}
+
+dialog {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 1em;
 }
