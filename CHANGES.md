@@ -2,6 +2,8 @@
 
 ## 1.1 (tbd)
 
+- Removed the need for the `unlimitedStorage` permission.
+
 ## 1.0 (1/11/2025)
 
 - The First Release!
