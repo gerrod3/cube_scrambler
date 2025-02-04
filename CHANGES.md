@@ -3,6 +3,7 @@
 ## 1.1 (tbd)
 
 - Removed the need for the `unlimitedStorage` permission.
+- Updated reset and save buttons to use SVG icons.
 
 ## 1.0 (1/11/2025)
 
