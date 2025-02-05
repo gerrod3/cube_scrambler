@@ -5,6 +5,7 @@
 - Removed the need for the `unlimitedStorage` permission.
 - Updated reset and save buttons to use SVG icons.
 - Added a dark theme.
+- Added a settings page to change theme, keybinds and scramble length.
 
 ## 1.0 (1/11/2025)
 

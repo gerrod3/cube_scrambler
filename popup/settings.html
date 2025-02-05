@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="common.css" />
+    <link rel="stylesheet" href="settings.css" />
+  </head>
+  <body>
+    <div class="settings-container">
+      <div class="header">
+        <a href="scramble.html" class="back-link">←</a>
+        <h2>Settings</h2>
+      </div>
+      
+      <div class="setting-group">
+        <h3>Appearance</h3>
+        <div class="scramble-row">
+          <label>Theme:</label>
+          <select id="theme">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="system">Auto</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <h3>Keybinds</h3>
+        <div class="keybind-row">
+          <label>New Scramble:</label>
+          <input type="text" id="newScrambleKeybind" placeholder="Press keys...">
+        </div>
+        <div class="keybind-row">
+          <label>Start/Stop Timer:</label>
+          <input type="text" id="timerKeybind" placeholder="Press keys...">
+        </div>
+        <div class="keybind-row">
+          <label>Reset Timer:</label>
+          <input type="text" id="resetTimerKeybind" placeholder="Press keys...">
+        </div>
+        <div class="keybind-row">
+          <label>Save Time:</label>
+          <input type="text" id="saveTimeKeybind" placeholder="Press keys...">
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <h3>Scramble Settings</h3>
+        <div class="scramble-row">
+          <label>Moves per scramble:</label>
+          <div class="validation-container">
+            <input type="number" id="scrambleLength" min="1" max="100" value="20">
+            <div id="scrambleLengthValidation" class="validation-message"></div>
+          </div>
+        </div>
+      </div>
+
+      <button id="saveSettings">Save Settings</button>
+    </div>
+
+    <!-- Custom Alert Overlay -->
+    <div class="alert-overlay" id="alertOverlay">
+      <div class="alert-box">
+        <div class="alert-message" id="alertMessage"></div>
+        <button class="alert-button" id="alertButton">OK</button>
+      </div>
+    </div>
+    <script src="settings.js"></script>
+    <script src="theme.js"></script>
+  </body>
+</html>

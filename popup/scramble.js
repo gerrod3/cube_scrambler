@@ -106,7 +106,7 @@ let scramble_p = document.getElementById("scramble");
 let scramble_b = document.getElementById("scramble-button");
 
 function newScramble() {
-    scramble_p.innerText = scramble();
+    scramble_p.innerText = scramble(GLOBAL_SETTINGS.scrambleLength);
 }
 
 function getScramble() {
@@ -118,4 +118,14 @@ scramble_b.addEventListener("mousedown", (e) => {
     newScramble();
 });
 
-newScramble();
+GLOBAL_SETTINGS_PROMISE.then(() => {
+    newScramble();
+});
+
+// Setup collapse toggle
+document.getElementById('settingsToggle').addEventListener('click', function() {
+    const section = document.getElementById('settingsSection');
+    const toggle = document.getElementById('settingsToggle');
+    section.classList.toggle('hidden');
+    toggle.classList.toggle('expanded');
+});

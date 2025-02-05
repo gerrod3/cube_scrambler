@@ -5,6 +5,7 @@
   "author": "gerrod",
   "description": "Quick random Cube scrambles with a recorded timer!",
   "homepage_url": "https://github.com/gerrod3/cube_scrambler",
+  "permissions": ["storage"],
   "action": {
     "default_icon": "icons/icon.png",
     "default_title": "Cube Scrambler",

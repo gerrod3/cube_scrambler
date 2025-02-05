@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="scramble.css" />
+    <link rel="stylesheet" href="common.css" />
   </head>
   <body>
     <div>
@@ -59,6 +59,19 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Collapsible Settings Section -->
+      <div class="collapse-section hidden" id="settingsSection">
+        <a href="settings.html">
+          <button id="settings-button">Settings</button>
+        </a>
+      </div>
+      <button class="collapse-toggle" id="settingsToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
       <dialog id="delete-modal">
         <div>
           <div class="delete-question">
@@ -81,6 +94,8 @@
         </div>
       </dialog>
     </div>
+    <script src="settings.js"></script>
+    <script src="theme.js"></script>
     <script src="scramble.js"></script>
     <script src="timer.js"></script>
     <script src="database.js"></script>
