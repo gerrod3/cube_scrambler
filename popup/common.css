@@ -193,3 +193,35 @@ dialog {
   width: 14px;
   height: 14px;
 }
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  align-items: stretch;
+  margin: 0%;
+}
+
+.button-row a {
+  text-decoration: none;
+  display: flex;
+}
+
+.button-row button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#delete-records-button {
+  background-color: var(--delete-button-bg);
+  gap: 8px;
+}
+
+#delete-records-button:hover {
+  background-color: var(--delete-button-hover-bg);
+}
+
+#delete-records-button svg {
+  stroke: var(--text-color);
+}

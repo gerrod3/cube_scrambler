@@ -1,4 +1,3 @@
-
 class Cube3x3 {
     // date as the key
     // scramble as array of moves
@@ -124,12 +123,24 @@ stat_select.addEventListener("change", (e) => {
 });
 onDBInit(updateStatValues);
 
+let settings_button = document.getElementById("settings-button");
+settings_button.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    location.href = "settings.html";
+})
+
 let delete_modal = document.getElementById("delete-modal");
 let delete_select = document.getElementById("delete-select");
 let delete_cancel = document.getElementById("delete-cancel-button");
 let delete_confirm = document.getElementById("delete-confirm-button");
 let delete_text = document.getElementById("delete-record-text");
+let delete_records_button = document.getElementById("delete-records-button");
 let deleting = false;
+
+delete_records_button.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    showDeleteModal();
+});
 
 function deleteRecords() {
     if (Cube3x3.db.isInit && !deleting) {

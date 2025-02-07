@@ -6,6 +6,7 @@
 - Updated reset and save buttons to use SVG icons.
 - Added a dark theme.
 - Added a settings page to change theme, keybinds and scramble length.
+- Added a delete button to easily bring up the delete dialog.
 
 ## 1.0 (1/11/2025)
 
