@@ -64,13 +64,15 @@ jobs:
           sed -i "s|## ${CURRENT_VERSION//./\\.} (tbd)|## ${CURRENT_VERSION} ($TODAY)|" CHANGES.md
           sed -i "/# Changelog/a\\\n## $NEXT_VERSION (tbd)" CHANGES.md
           
+          # Set NEXT_VERSION as environment variable for other steps
+          echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+          
       - name: Update manifest.json
         run: |
-          NEXT_VERSION="$MAJOR.$NEXT_MINOR"
-          sed -i 's/"version": "[^"]*"/"version": "'$NEXT_VERSION'"/' manifest.json
+          sed -i 's/"version": "[^"]*"/"version": "'${{ env.NEXT_VERSION}}'"/' manifest.json
           
       - name: Commit version bump
         run: |
           git add CHANGES.md manifest.json
-          git commit -m "Bump to $NEXT_VERSION"
+          git commit -m "Bump to ${{ env.NEXT_VERSION }}"
           git push
