@@ -1,6 +1,8 @@
 # Changelog
 
-## 1.1 (tbd)
+## 1.2 (tbd)
+
+## 1.1 (2/9/2025)
 
 - Removed the need for the `unlimitedStorage` permission.
 - Updated reset and save buttons to use SVG icons.
