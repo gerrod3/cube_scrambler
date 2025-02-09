@@ -202,20 +202,19 @@ dialog {
   margin: 0%;
 }
 
-.button-row a {
-  text-decoration: none;
-  display: flex;
-}
-
 .button-row button {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+}
+
+#settings-button svg {
+  stroke: var(--text-color);
 }
 
 #delete-records-button {
   background-color: var(--delete-button-bg);
-  gap: 8px;
 }
 
 #delete-records-button:hover {
