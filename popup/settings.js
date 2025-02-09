@@ -55,8 +55,7 @@ async function saveSettings(settings) {
     }
     
     await browser.storage.local.set({ settings });
-    // Notify other parts of the extension that settings have changed
-    // browser.runtime.sendMessage({ type: 'SETTINGS_UPDATED', settings });
+
   } catch (error) {
     console.error('Error saving settings:', error);
     showAlert(error.message);
@@ -169,6 +168,11 @@ var GLOBAL_SETTINGS = {};
 var GLOBAL_SETTINGS_PROMISE = null;
 async function initGlobalSettings() {
     GLOBAL_SETTINGS = await loadSettings();
+}
+
+// Chrome compatibility
+if (typeof browser === 'undefined') {
+  var browser = chrome;
 }
 
 // Initialize
