@@ -1,0 +1,76 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (X.Y format)'
+        required: true
+        type: string
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install web-ext
+        run: npm install --global web-ext
+        
+      - name: Build extension
+        run: web-ext build
+        
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Create and push tag
+        run: |
+          git tag "v${{ github.event.inputs.version }}"
+          git push origin "v${{ github.event.inputs.version }}"
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "v${{ github.event.inputs.version }}"
+          files: web-ext-artifacts/*.zip
+          generate_release_notes: true
+          token: ${{ secrets.GITHUB_TOKEN }} 
+
+      - name: Update Changelog
+        run: |
+          # Get today's date in the required format
+          TODAY=$(date +%-m/%-d/%Y)
+          
+          # Read the current version and calculate next version
+          CURRENT_VERSION="${{ github.event.inputs.version }}"
+          MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+          MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+          NEXT_MINOR=$((MINOR + 1))
+          NEXT_VERSION="$MAJOR.$NEXT_MINOR"
+          
+          # Update the changelog - using | as delimiter and escaping dots
+          sed -i "s|## ${CURRENT_VERSION//./\\.} (tbd)|## ${CURRENT_VERSION} ($TODAY)|" CHANGES.md
+          sed -i "/# Changelog/a\\\n## $NEXT_VERSION (tbd)" CHANGES.md
+          
+      - name: Update manifest.json
+        run: |
+          NEXT_VERSION="$MAJOR.$NEXT_MINOR"
+          sed -i 's/"version": "[^"]*"/"version": "'$NEXT_VERSION'"/' manifest.json
+          
+      - name: Commit version bump
+        run: |
+          git add CHANGES.md manifest.json
+          git commit -m "Bump to $NEXT_VERSION"
+          git push
