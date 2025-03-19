@@ -105,6 +105,23 @@ function scramble(num_moves=20, moveset=ALLMOVES) {
 let scramble_p = document.getElementById("scramble");
 let scramble_b = document.getElementById("scramble-button");
 
+// Update button titles with their current keybindings
+function updateButtonTitles(settings) {
+    const buttonMappings = {
+      'scramble-button': { keybind: settings.newScrambleKeybind, description: 'New scramble' },
+      'timer-start': { keybind: settings.timerKeybind, description: 'Start/pause timer' },
+      'timer-reset': { keybind: settings.resetTimerKeybind, description: 'Reset timer' },
+      'timer-save': { keybind: settings.saveTimeKeybind, description: 'Save time' }
+    };
+  
+    for (const [buttonId, { keybind, description }] of Object.entries(buttonMappings)) {
+      const button = document.getElementById(buttonId);
+      if (button) {
+        button.title = `${description} (${keybind})`;
+      }
+    }
+}
+
 function newScramble() {
     scramble_p.innerText = scramble(GLOBAL_SETTINGS.scrambleLength);
 }
@@ -120,6 +137,7 @@ scramble_b.addEventListener("mousedown", (e) => {
 
 GLOBAL_SETTINGS_PROMISE.then(() => {
     newScramble();
+    updateButtonTitles(GLOBAL_SETTINGS);
 });
 
 // Setup collapse toggle

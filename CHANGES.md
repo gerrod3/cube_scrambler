@@ -2,6 +2,8 @@
 
 ## 1.2 (tbd)
 
+- Added help text hovers to the buttons.
+
 ## 1.1 (2/9/2025)
 
 - Removed the need for the `unlimitedStorage` permission.

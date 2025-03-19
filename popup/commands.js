@@ -47,3 +47,11 @@ addEventListener("keydown", async (e) => {
         showDeleteModal();
     }
 });
+
+// Listen for settings updates from the settings page
+browser.runtime.onMessage.addListener((message) => {
+    if (message.type === 'settingsUpdated') {
+        GLOBAL_SETTINGS = message.settings;
+        updateButtonTitles(message.settings);
+    }
+});
