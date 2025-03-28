@@ -75,6 +75,8 @@ function updateTimerValue(elapsed) {
 }
 
 let timer = new Timer(updateTimerValue);
+let timer_start_callbacks = [];
+let timer_reset_callbacks = [];
 
 function timerStart() {
     timer.start();
@@ -83,6 +85,9 @@ function timerStart() {
     } else {
         timer_start.innerText = "Start";
     }
+    for (let callback of timer_start_callbacks) {
+        callback();
+    }
 }
 
 function timerReset() {
@@ -90,6 +95,9 @@ function timerReset() {
     if (!timer.running) {
         timer_start.innerText = "Start";
         updateTimerValue(timer.elapsed);
+    }
+    for (let callback of timer_reset_callbacks) {
+        callback();
     }
 }
 

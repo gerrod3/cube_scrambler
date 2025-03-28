@@ -9,6 +9,8 @@
   --delete-button-bg: rgb(216, 128, 146);
   --delete-button-hover-bg: rgb(223, 3, 47);
   --border-color: #000000;
+  --button-disabled-bg: #cccccc;
+  --button-disabled-text: #666666;
 }
 
 /* Dark theme colors */
@@ -22,6 +24,8 @@
   --delete-button-hover-bg: rgb(165, 3, 35);
   --reset-button-hover-bg: #5c5c28;
   --border-color: #ffffff;
+  --button-disabled-bg: #444444;
+  --button-disabled-text: #888888;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +39,8 @@
     --delete-button-hover-bg: rgb(165, 3, 35);
     --reset-button-hover-bg: #5c5c28;
     --border-color: #ffffff;
+    --button-disabled-bg: #444444;
+    --button-disabled-text: #888888;
   }
 }
 
@@ -49,6 +55,8 @@
   --delete-button-bg: rgb(216, 128, 146);
   --delete-button-hover-bg: rgb(223, 3, 47);
   --border-color: #000000;
+  --button-disabled-bg: #cccccc;
+  --button-disabled-text: #666666;
 }
 
 html {
@@ -88,6 +96,16 @@ button[type="reset"] {
 
 button[type="reset"]:hover {
   background-color: var(--reset-button-hover-bg);
+}
+
+button[disabled] {
+  background-color: var(--button-disabled-bg);
+  color: var(--button-disabled-text);
+  cursor: not-allowed;
+}
+
+button[disabled]:hover {
+  background-color: var(--button-disabled-bg);
 }
 
 .box {

@@ -90,12 +90,25 @@ let lastScramble = null;
 let lastTimer = null;
 let saving = false;
 
+function canSave(scramble) {
+    if (!Cube3x3.db.isInit) {
+        return false;
+    }
+    if (timer.running) {
+        return true;
+    }
+    scramble = scramble || getScramble();
+    let scrambleS = scramble.join(",");
+    let time = timer.elapsed;
+    return time && (lastScramble !== scrambleS || lastTimer !== time);
+}
+
 function saveTime() {
     timer.pause();
     let scramble = getScramble();
     let scrambleS = scramble.join(",");
     let time = timer.elapsed;
-    if (Cube3x3.db.isInit && time && (lastScramble !== scrambleS || lastTimer !== time)) {
+    if (canSave(scramble)) {
         console.debug("saving, ", time, scrambleS, lastTimer, lastScramble);
         if (!saving) {
             saving = true;
@@ -105,6 +118,7 @@ function saveTime() {
                 updateStatValues();
                 lastScramble = scrambleS;
                 lastTimer = time;
+                save_button.disabled = true;
             })
             .finally(() => {
                 saving = false;
@@ -112,6 +126,13 @@ function saveTime() {
         }
     }
 }
+
+function updateSaveButton() {
+    save_button.disabled = saving || !canSave();
+}
+
+timer_start_callbacks.push(updateSaveButton);
+timer_reset_callbacks.push(updateSaveButton);
 save_button.addEventListener("mousedown", (e) => {
     e.preventDefault();
     saveTime();

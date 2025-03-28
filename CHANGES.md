@@ -3,6 +3,7 @@
 ## 1.2 (tbd)
 
 - Added help text hovers to the buttons.
+- Added indicator to save button to tell if the time can be saved.
 
 ## 1.1 (2/9/2025)
 
